@@ -20,7 +20,6 @@ public class Main {
 			} 
 			l++;
 		}
-		System.out.println(Arrays.toString(arr));
 	}
 	
 	public void sort(int[] arr) {
