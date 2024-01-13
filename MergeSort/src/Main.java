@@ -26,9 +26,40 @@ public class Main {
 		helper(arr, 0, arr.length);
 	}
 	
+	private int[] helper2(int[] arr, int l, int r) {
+		if (l + 1 >= r) 
+			return arr;
+		int divider = l + (r - l) / 2;
+		int[] leftArr = helper2(Arrays.copyOfRange(arr, l, divider), 0, divider - l);
+		int[] rightArr = helper2(Arrays.copyOfRange(arr, divider, r), 0, r - divider);
+		int leftIndex = 0;
+		int rightIndex = 0;
+		for (int i = 0; i < arr.length; i++) {
+			if (leftIndex < leftArr.length && rightIndex < rightArr.length) {
+				int left = leftArr[leftIndex];
+				int right = rightArr[rightIndex];
+				if (left < right) {
+					arr[i] = left;
+					leftIndex++;
+				} else {
+					arr[i] = right;
+					rightIndex++;
+				}
+			} else if (leftIndex < leftArr.length) 
+				arr[i] = leftArr[leftIndex++];
+			else
+				arr[i] = rightArr[rightIndex++];
+		}
+		return arr;
+	}
+	
+	public void sort2(int[] arr) {
+		helper2(arr, 0, arr.length);
+	}
+	
 	public static void main(String[] args) {
 		int[] arr = {9,8,7,5,4,6,1,2,3};
-		new Main().sort(arr);
+		new Main().sort2(arr);
 		System.out.println(Arrays.toString(arr));
 	}
 }
